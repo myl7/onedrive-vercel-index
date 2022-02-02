@@ -60,5 +60,9 @@ module.exports = {
       "name": "Telegram",
       "link": "https://t.me/realSpencerWoo"
     }
-  ]
+  ],
+
+  // [OPTIONAL] Choose the search provider. "od" means using search provided by OneDrive API. "lua" means using search
+  // performed in Redis with Redis Lua support.
+  searchProvider: "od"
 }

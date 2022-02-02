@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { encodePath, getAccessToken } from '.'
 import apiConfig from '../../config/api.config'
 import siteConfig from '../../config/site.config'
+import searchIndex from '../../utils/searchIndex'
 
 /**
  * Sanitize the search query
@@ -31,14 +32,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const searchApi = `${apiConfig.driveApi}/root${encodedPath}/search(q='${sanitiseQuery(searchQuery)}')`
 
     try {
-      const { data } = await axios.get(searchApi, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: {
-          select: 'id,name,file,folder,parentReference',
-          top: siteConfig.maxItems,
-        },
-      })
-      res.status(200).json(data.value)
+      switch (siteConfig.searchProvider ?? 'od') {
+        case 'od':
+          const { data } = await axios.get(searchApi, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {
+              select: 'id,name,file,folder,parentReference',
+              top: siteConfig.maxItems
+            }
+          })
+          res.status(200).json(data.value)
+          return
+        case 'lua':
+          const ids = await searchIndex(searchQuery)
+          const itemApi = (id: string) => `${apiConfig.driveApi}/items/${id}`
+          const values = await Promise.all(
+            ids.map(id =>
+              axios.get(itemApi(id), {
+                headers: { Authorization: `Bearer ${accessToken}` },
+                params: {
+                  select: 'id,name,file,folder,parentReference'
+                }
+              })
+            )
+          )
+          res.status(200).json(values)
+          return
+        default:
+          res.status(500).json({ error: 'Unknown search provider' })
+          return
+      }
     } catch (error: any) {
       res.status(error.response.status).json({ error: error.response.data })
     }
