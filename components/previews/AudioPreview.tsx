@@ -69,20 +69,14 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
               <div className="absolute m-4 rounded-full shadow-lg">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  className={`h-full w-full rounded-full object-cover object-top ${
-                    playerStatus === PlayerState.Playing ? 'animate-spin-slow' : ''
-                  }`}
+                  className={'h-full w-full rounded-full object-cover object-top'}
                   src={thumbnail}
                   alt={file.name}
                   onError={() => setBrokenThumbnail(true)}
                 />
               </div>
             ) : (
-              <FontAwesomeIcon
-                className={`z-10 h-5 w-5 ${playerStatus === PlayerState.Playing ? 'animate-spin' : ''}`}
-                icon="music"
-                size="2x"
-              />
+              <FontAwesomeIcon className={'z-10 h-5 w-5'} icon="music" size="2x" />
             )}
           </div>
 
