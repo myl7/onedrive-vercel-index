@@ -14,6 +14,10 @@ Merged patches are marked as strikethrough
 
 - Play video as audio for background playing on mobile devices spencerwooo/onedrive-vercel-index#471
 - Docker build config spencerwooo/onedrive-vercel-index#643 spencerwooo/onedrive-vercel-index#642
+- More translations
+  - Hindi translation spencerwooo/onedrive-vercel-index#500
+  - Turkish translation spencerwooo/onedrive-vercel-index#582
+- Multiple subtitle format support other than only WebVTT spencerwooo/onedrive-vercel-index#623 with more fine-tune
 
 #### Bug Fix
 
@@ -21,7 +25,7 @@ Merged patches are marked as strikethrough
 - Fix numeric password not working spencerwooo/onedrive-vercel-index#638, which resolves spencerwooo/onedrive-vercel-index#606
 - Fix music volume reset to max automatically spencerwooo/onedrive-vercel-index#630, which resolves spencerwooo/onedrive-vercel-index#573
 - Fix error report for search result item requests spencerwooo/onedrive-vercel-index#647
-- Fix wrong auth url param name of EPUB preview spencerwooo/onedrive-vercel-index#659
+- Fix wrong auth url param name of EPUB preview, which resolves spencerwooo/onedrive-vercel-index#659
 
 ### License
 
@@ -46,7 +50,7 @@ The following is the original README:
 
 ## TL;DR
 
-Showcase, share, preview, and download files inside *your* OneDrive with onedrive-vercel-index -
+Showcase, share, preview, and download files inside _your_ OneDrive with onedrive-vercel-index -
 
 - Completely free to host 💸
 - Super fast ⚡ and responsive 💦
@@ -63,9 +67,9 @@ Showcase, share, preview, and download files inside *your* OneDrive with onedriv
 
 Please go to our [discussion forum](https://github.com/spencerwooo/onedrive-vercel-index/discussions) for general questions and FAQs, **issues are for bug reports and bug reports only.** Feature requests may or may not be ignored, as [I (@spencerwooo)](https://spencerwoo.com) am the only one maintaining the project, so **I only prioritise features that I use.**
 
-*If you happen to like this project, please give it a star!* :3
+_If you happen to like this project, please give it a star!_ :3
 
-*If you really, really like this project, please send money! -> [Sponsors 🤑 and donations 💰](https://ovi.swo.moe/sponsor)*
+_If you really, really like this project, please send money! -> [Sponsors 🤑 and donations 💰](https://ovi.swo.moe/sponsor)_
 
 ## Demo
 
@@ -159,7 +163,7 @@ Documentation is hosted at [onedrive-vercel-index.spencerwoo.com](https://ovi.sw
 - I got a problem during deployment ... - [Docs - FAQ](https://ovi.swo.moe/docs/faqs/error-on-deployment)
 - I didn't find a solution / My problem is unique - [Find help in discussion forum](https://github.com/spencerwooo/onedrive-vercel-index/discussions).
 
-## Server-*less* (free)?
+## Server-_less_ (free)?
 
 Yes! Completely free with no backend server what-so-ever. (Well, we use Redis, but that's free to some extent also.)
 
@@ -171,7 +175,7 @@ Open-source is hard! If you happen to like this project and want me to keep goin
 
 ### Sponsors
 
-*Your name will appear here if you sponsor or donate 😀*
+_Your name will appear here if you sponsor or donate 😀_
 
 ## License
 

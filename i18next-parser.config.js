@@ -14,5 +14,5 @@ module.exports = {
   locales: i18n.locales,
   output: path.join(localePath, '$LOCALE/$NAMESPACE.json'),
   input: ['**/*.{ts,tsx}', '!**/node_modules/**'],
-  sort: true
+  sort: true,
 }

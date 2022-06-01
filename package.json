@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier 'components/**/*.tsx' 'config/*.js' 'pages/**/*.{ts,tsx}' '{types,utils}/**/*.ts' --write",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "extract": "i18next"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@headlessui/react": "^1.4.0",
+    "@openfun/subsrt": "^1.0.5",
     "@tailwindcss/line-clamp": "^0.3.1",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.25.0",
