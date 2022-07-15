@@ -10,6 +10,7 @@ import { getBaseUrl } from '../utils/getBaseUrl'
 import { formatModifiedDateTime } from '../utils/fileDetails'
 import { Checkbox, ChildIcon, ChildName, Downloading } from './FileListing'
 import { getStoredToken } from '../utils/protectedRouteHandler'
+import siteConfig from '../config/site.config'
 
 const GridItem = ({ c, path }: { c: OdFolderChildren; path: string }) => {
   // We use the generated medium thumbnail for rendering preview images (excluding folders)
@@ -102,86 +103,90 @@ const FolderGridLayout = ({
       </div>
 
       <div className="grid grid-cols-2 gap-3 p-3 md:grid-cols-4">
-        {folderChildren.map((c: OdFolderChildren) => (
-          <div
-            key={c.id}
-            className="group relative overflow-hidden rounded transition-all duration-100 hover:bg-gray-100 dark:hover:bg-gray-850"
-          >
-            <div className="absolute top-0 right-0 z-10 m-1 rounded bg-white/50 py-0.5 opacity-0 transition-all duration-100 group-hover:opacity-100 dark:bg-gray-900/50">
-              {c.folder ? (
-                <div>
-                  <span
-                    title={t('Copy folder permalink')}
-                    className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
-                    onClick={() => {
-                      clipboard.copy(`${getBaseUrl()}${getItemPath(c.name)}`)
-                      toast(t('Copied folder permalink.'), { icon: '👌' })
-                    }}
-                  >
-                    <FontAwesomeIcon icon={['far', 'copy']} />
-                  </span>
-                  {folderGenerating[c.id] ? (
-                    <Downloading title={t('Downloading folder, refresh page to cancel')} style="px-1.5 py-1" />
-                  ) : (
+        {folderChildren.map((c: OdFolderChildren) =>
+          c.name === '.password' && siteConfig.hideDotPasswordInLists ? (
+            ''
+          ) : (
+            <div
+              key={c.id}
+              className="group relative overflow-hidden rounded transition-all duration-100 hover:bg-gray-100 dark:hover:bg-gray-850"
+            >
+              <div className="absolute top-0 right-0 z-10 m-1 rounded bg-white/50 py-0.5 opacity-0 transition-all duration-100 group-hover:opacity-100 dark:bg-gray-900/50">
+                {c.folder ? (
+                  <div>
                     <span
-                      title={t('Download folder')}
+                      title={t('Copy folder permalink')}
                       className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
-                      onClick={handleFolderDownload(getItemPath(c.name), c.id, c.name)}
+                      onClick={() => {
+                        clipboard.copy(`${getBaseUrl()}${getItemPath(c.name)}`)
+                        toast(t('Copied folder permalink.'), { icon: '👌' })
+                      }}
+                    >
+                      <FontAwesomeIcon icon={['far', 'copy']} />
+                    </span>
+                    {folderGenerating[c.id] ? (
+                      <Downloading title={t('Downloading folder, refresh page to cancel')} style="px-1.5 py-1" />
+                    ) : (
+                      <span
+                        title={t('Download folder')}
+                        className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
+                        onClick={handleFolderDownload(getItemPath(c.name), c.id, c.name)}
+                      >
+                        <FontAwesomeIcon icon={['far', 'arrow-alt-circle-down']} />
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <span
+                      title={t('Copy raw file permalink')}
+                      className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
+                      onClick={() => {
+                        clipboard.copy(
+                          `${getBaseUrl()}/api/raw/?path=${getItemPath(c.name)}${
+                            hashedToken ? `&odpt=${hashedToken}` : ''
+                          }`
+                        )
+                        toast.success(t('Copied raw file permalink.'))
+                      }}
+                    >
+                      <FontAwesomeIcon icon={['far', 'copy']} />
+                    </span>
+                    <a
+                      title={t('Download file')}
+                      className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
+                      href={`${getBaseUrl()}/api/raw/?path=${getItemPath(c.name)}${
+                        hashedToken ? `&odpt=${hashedToken}` : ''
+                      }`}
                     >
                       <FontAwesomeIcon icon={['far', 'arrow-alt-circle-down']} />
-                    </span>
-                  )}
-                </div>
-              ) : (
-                <div>
-                  <span
-                    title={t('Copy raw file permalink')}
-                    className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
-                    onClick={() => {
-                      clipboard.copy(
-                        `${getBaseUrl()}/api/raw/?path=${getItemPath(c.name)}${
-                          hashedToken ? `&odpt=${hashedToken}` : ''
-                        }`
-                      )
-                      toast.success(t('Copied raw file permalink.'))
-                    }}
-                  >
-                    <FontAwesomeIcon icon={['far', 'copy']} />
-                  </span>
-                  <a
-                    title={t('Download file')}
-                    className="cursor-pointer rounded px-1.5 py-1 hover:bg-gray-300 dark:hover:bg-gray-600"
-                    href={`${getBaseUrl()}/api/raw/?path=${getItemPath(c.name)}${
-                      hashedToken ? `&odpt=${hashedToken}` : ''
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={['far', 'arrow-alt-circle-down']} />
-                  </a>
-                </div>
-              )}
-            </div>
+                    </a>
+                  </div>
+                )}
+              </div>
 
-            <div
-              className={`${
-                selected[c.id] ? 'opacity-100' : 'opacity-0'
-              } absolute top-0 left-0 z-10 m-1 rounded bg-white/50 py-0.5 group-hover:opacity-100 dark:bg-gray-900/50`}
-            >
-              {!c.folder && !(c.name === '.password') && (
-                <Checkbox
-                  checked={selected[c.id] ? 2 : 0}
-                  onChange={() => toggleItemSelected(c.id)}
-                  title={t('Select file')}
-                />
-              )}
-            </div>
+              <div
+                className={`${
+                  selected[c.id] ? 'opacity-100' : 'opacity-0'
+                } absolute top-0 left-0 z-10 m-1 rounded bg-white/50 py-0.5 group-hover:opacity-100 dark:bg-gray-900/50`}
+              >
+                {!c.folder && !(c.name === '.password') && (
+                  <Checkbox
+                    checked={selected[c.id] ? 2 : 0}
+                    onChange={() => toggleItemSelected(c.id)}
+                    title={t('Select file')}
+                  />
+                )}
+              </div>
 
-            <Link href={getItemPath(c.name)} passHref>
-              <a>
-                <GridItem c={c} path={getItemPath(c.name)} />
-              </a>
-            </Link>
-          </div>
-        ))}
+              <Link href={getItemPath(c.name)} passHref>
+                <a>
+                  <GridItem c={c} path={getItemPath(c.name)} />
+                </a>
+              </Link>
+            </div>
+          )
+        )}
       </div>
     </div>
   )

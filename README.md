@@ -18,6 +18,8 @@ Merged patches are marked as strikethrough
   - Hindi translation spencerwooo/onedrive-vercel-index#500
   - Turkish translation spencerwooo/onedrive-vercel-index#582
 - Multiple subtitle format support other than only WebVTT spencerwooo/onedrive-vercel-index#623 with more fine-tune
+- Visual defense: Options added to [`config/site.config.js`](config/site.config.js) to visually hide some elements in the app. Notice that these elements can still be accessed by other ways. **YOU SHOULD NOT RELY ON THEM TO PROTECT YOUR DATA**.
+  - `hideDotPasswordInLists`: Enable it to hide `.password` in lists. Notice that `.password` can still be opened online manually with its path like other files.
 
 #### Bug Fix
 
