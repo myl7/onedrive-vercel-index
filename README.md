@@ -6,28 +6,16 @@ Do not use it if you want to use the fork.
 `dev` branch is the correct base for reusing.
 It will try to keep updated with `upstream/main`, but contains some extra patches which are pending/rejected (due to project roadmap preference other than bugs or breaking changes) PRs.
 
+I have become a collaborator of the upstream [spencerwooo/onedrive-vercel-index](https://github.com/spencerwooo/onedrive-vercel-index), so later `dev` branch should only contain special opinioned features required by me.
+If you just need a nice start, I would suggest you start with / switch back to the upsteam.
+
 ### Patches
-
-Merged patches are marked as strikethrough
-
-#### New Features
 
 - Play video as audio for background playing on mobile devices spencerwooo/onedrive-vercel-index#471
 - Docker build config spencerwooo/onedrive-vercel-index#643 spencerwooo/onedrive-vercel-index#642
-- More translations
-  - Hindi translation spencerwooo/onedrive-vercel-index#500
-  - Turkish translation spencerwooo/onedrive-vercel-index#582
 - Multiple subtitle format support other than only WebVTT spencerwooo/onedrive-vercel-index#623 with more fine-tune
 - Visual defense: Options added to [`config/site.config.js`](config/site.config.js) to visually hide some elements in the app. Notice that these elements can still be accessed by other ways. **YOU SHOULD NOT RELY ON THEM TO PROTECT YOUR DATA**.
   - `hideDotPasswordInLists`: Enable it to hide `.password` in lists. Notice that `.password` can still be opened online manually with its path like other files.
-
-#### Bug Fix
-
-- Fix missing filename urlencoding in multidownload spencerwooo/onedrive-vercel-index#639, which resolves discussion spencerwooo/onedrive-vercel-index#621
-- Fix numeric password not working spencerwooo/onedrive-vercel-index#638, which resolves spencerwooo/onedrive-vercel-index#606
-- Fix music volume reset to max automatically spencerwooo/onedrive-vercel-index#630, which resolves spencerwooo/onedrive-vercel-index#573
-- Fix error report for search result item requests spencerwooo/onedrive-vercel-index#647
-- Fix wrong auth url param name of EPUB preview, which resolves spencerwooo/onedrive-vercel-index#659
 
 ### License
 
